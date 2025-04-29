@@ -30,6 +30,7 @@ userRouter.patch("/:id", (req, res)=>{
 
 function isAbdullah() {
     console.log("I have modified something");
+    console.log("What is going on there");
 }
 
 module.exports = userRouter
