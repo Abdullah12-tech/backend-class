@@ -10,3 +10,8 @@ app.listen(port,()=>{
 
 app.use("/api/users", userRouter)
 app.use("/api/products", productRouter)
+
+
+const zoologist = ()=> {
+    console.log('abdul is my guy')
+}
