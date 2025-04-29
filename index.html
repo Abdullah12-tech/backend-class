@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SweetAlert2 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <title>Document</title>
+    <style>
+      button{
+        background-color: red;
+        padding: 10px 20px;
+      }
+    </style>
+</head>
+<body>
+    <button onclick="alertSomething()">Click me</button>
+    <details>
+      <summary>List of products</summary>
+      <h2>Java</h2>
+      <h2>Python</h2>
+      <h2>React</h2>
+    </details>
+    <div id="main-container">
+      <div class="content">
+        <span>"I am 20 years old"</span>
+        <span class="typing text">
+          <span class="insert text"></span>
+          <span class="cursor blink-animation"></span>
+        </span>
+      </div>
+    </div>
+<script>
+        function alertSomething() {
+          Swal.fire({
+            title: 'Success',
+            text: "logged in successfully",
+            icon: 'success',
+            confirmButtonColor: 'green',
+            confirmButtonText: 'Ok'
+          }).then((result) => {
+            if (result.isConfirmed) {
+            //   location.href = "./index.html"
+            }
+          });
+        }
+</script>
+</body>
+</html>
