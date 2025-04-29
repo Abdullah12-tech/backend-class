@@ -28,4 +28,8 @@ userRouter.patch("/:id", (req, res)=>{
     })
 })
 
+function isAbdullah() {
+    console.log("I have modified something");
+}
+
 module.exports = userRouter
