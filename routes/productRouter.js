@@ -1,27 +1,8 @@
 const express = require("express")
+const {getAllProducts} = require("../controllers/productController")
+const MiddlewareOne = require("../middlewares/middleware1")
+const MiddlewareTwo = require("../middlewares/middleware2")
 const productRouter = express.Router()
 
-productRouter.get("/", (req,res)=>{
-    res.json({
-        message: "These are all the products we have here"
-    })
-})
-productRouter.post("/:id",(req,res)=>{
-    res.json({
-
-        message: "The product with the id " + req.params.id + " has been added"
-    })
-})
-productRouter.delete("/:id",(req,res)=>{
-    res.json({
-
-        message: "The product with the id " + req.params.id + " has been deleted"
-    })
-})
-productRouter.patch("/:id",(req,res)=>{
-    res.json({
-
-        message: "The product with the id " + req.params.id + " has been updated"
-    })
-})
+productRouter.get("/",MiddlewareOne,MiddlewareTwo, getAllProducts)
 module.exports = productRouter
