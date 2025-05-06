@@ -11,5 +11,12 @@ const blogSchema = new mongoose.Schema({
     dateCreated: {
         type: Date,
         required: [true, "Date is required"]
+    },
+    blogImage: {
+        type: Image,
+        required: [true, "Image is required"]
     }
 })
+
+const blogModel = mongoose.model("blogs", blogSchema)
+module.exports = blogModel

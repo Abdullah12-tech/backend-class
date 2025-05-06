@@ -4,6 +4,7 @@ const connectToDb = require("./connectToDb")
 const userRouter = require("./routes/userRouter")
 const productRouter = require("./routes/productRouter")
 const categoryRouter = require("./routes/categoryRouter")
+const blogRouter = require("./routes/blogRouter")
 app.use(express.json())
 app.use()
 const port = 3000
@@ -15,6 +16,7 @@ connectToDb()
 app.use("/api/users", userRouter)
 app.use("/api/products", productRouter)
 app.use("/api/category", categoryRouter)
+app.use("api/blogs", blogRouter)
 
 
 // const zoologist = ()=> {
