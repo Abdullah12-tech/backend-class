@@ -13,7 +13,7 @@ const blogSchema = new mongoose.Schema({
         required: [true, "Date is required"]
     },
     blogImage: {
-        type: Image,
+        type: String,
         required: [true, "Image is required"]
     }
 })

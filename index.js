@@ -1,12 +1,13 @@
 const express = require("express")
 const app = express()
-const connectToDb = require("./connectToDb")
+const cors = require("cors")
 const userRouter = require("./routes/userRouter")
 const productRouter = require("./routes/productRouter")
 const categoryRouter = require("./routes/categoryRouter")
 const blogRouter = require("./routes/blogRouter")
+const connectToDb = require("./config/connectToDb")
 app.use(express.json())
-app.use()
+app.use(cors())
 const port = 3000
 app.listen(port,()=>{
     console.log("Listening on port " + port);
