@@ -1,7 +1,7 @@
 const categoryModel = require("../models/categoryModel")
 
 const addCategory = async (req, res) =>{
-    const category = categoryModel.create(req.body)
+    const category = await categoryModel.create(req.body)
     if (!category) {
         return res.status(400).json({
             status: "error",

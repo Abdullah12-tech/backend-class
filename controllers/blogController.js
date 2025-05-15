@@ -1,7 +1,7 @@
 const blogModel = require("../models/blogModel")
 
 const addBlog = async (req, res)=>{
-    const blogTobeAdded = blogModel.create(req.body)
+    const blogTobeAdded = await blogModel.create(req.body)
     try {
         if (!blogTobeAdded) {
             return res.status(400).json({

@@ -10,7 +10,8 @@ const blogSchema = new mongoose.Schema({
     },
     dateCreated: {
         type: Date,
-        required: [true, "Date is required"]
+        required: [true, "Date is required"],
+        default: new Date()
     },
     blogImage: {
         type: String,
