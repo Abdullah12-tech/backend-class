@@ -15,8 +15,16 @@ const productSchema = new mongoose.Schema({
     price: {
         type: Number,
         required: true
+    },
+    category: {
+        type: mongoose.Schema.ObjectId,
+        ref: "categories"
+    },
+    seller: {
+        type: mongoose.Schema.ObjectId,
+        ref: "users"
     }
 })
 
-const productModel = mongoose.model("products",productSchema)
+const productModel = mongoose.model("products", productSchema)
 module.exports = productModel

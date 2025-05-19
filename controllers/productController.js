@@ -1,7 +1,7 @@
 const productModel = require("../models/productModel")
 
 const getAllProducts = async (req,res)=>{
-    const products = await productModel.find()
+    const products = await productModel.find().populate("seller category")
     if (!products) {
         res.status(400).json({
             message: "products not found",

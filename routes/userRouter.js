@@ -14,7 +14,7 @@ userRouter.get("/",MiddlewareOne,MiddlewareTwo, getAllUsers)
 //         message: "User with the id " + req.params.id + " has been added"
 //     })
 // })
-userRouter.post("/:id", addUser)
+userRouter.post("/", addUser)
 userRouter.get("/:id",MiddlewareOne,MiddlewareTwo, getSingleUser)
 userRouter.delete("/:id",MiddlewareOne,MiddlewareTwo, deleteUser)
 

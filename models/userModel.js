@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 const userSchema = new mongoose.Schema({
-    name:{
+    name: {
         type: String,
         required: true
     },
@@ -13,18 +13,18 @@ const userSchema = new mongoose.Schema({
         required: true,
         minLength: 6
     },
-    age:{
+    age: {
         type: Number,
         min: 16
     },
     role: {
         type: String,
-        annum: ["buyer", "seller","admin"],
+        enum: ["buyer", "seller", "admin"],
         default: "buyer"
     },
     isVerified: {
         type: Boolean,
-        
+        default: false
     }
 })
 
