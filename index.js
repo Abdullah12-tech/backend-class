@@ -7,6 +7,7 @@ const categoryRouter = require("./routes/categoryRouter")
 const blogRouter = require("./routes/blogRouter")
 const connectToDb = require("./config/connectToDb")
 const authRouter = require("./routes/authRouter")
+require("./services/nodemailer/transporter")
 app.use(express.json())
 app.use(cors())
 const port = 3000

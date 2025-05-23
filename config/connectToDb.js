@@ -6,7 +6,7 @@ const mongoUri = process.env.mongo_URI
 
 const connectToDb = async () =>{
     try {
-        const dbConnect = mongoose.connect(mongoUri)
+        const dbConnect = await mongoose.connect(mongoUri)
 
         if (dbConnect) {
             console.log("Connected to db");
@@ -15,7 +15,5 @@ const connectToDb = async () =>{
         console.log(error); 
     }
 }
-
-connectToDb()
 
 module.exports = connectToDb
