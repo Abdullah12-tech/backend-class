@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const userModel = require("../models/userModel");
 const sendVerificationEmail = require("../services/nodemailer/sendMail");
 const randomGenerate = require("../utils/randomGenerate");
+const sendPasswordResetEmail = require("../services/nodemailer/passResetMail");
 const signUp = async (req, res) => {
     const { password, email, name } = req.body;
     try {
@@ -59,6 +60,75 @@ const verifyEmail = async (req, res) => {
     }
 }
 
+
+
+const findEmail = async (req,res)=>{
+    const {email} = req.body
+    const token = randomGenerate(8)
+    const tokenExpire = Date.now() + 3000000
+    try {
+        const user = await userModel.findOne({email: email})
+        const userFirstName = user.name.split(" ")[0]
+        if (!user) {
+            res.status(401).json({
+                message: "Email does not exist",
+                status: "error"
+            })
+        }
+
+        await userModel.findByIdAndUpdate(user._id,{
+            verificationToken: token,
+            verificationExp: tokenExpire,
+        })
+        sendPasswordResetEmail(user.email, userFirstName, token)
+        res.status(200).json({
+            message: "Password Reset Email has been sent to you",
+            status: "success"
+        })
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+const verifyPasswordReset = async (req,res)=>{
+    const {token} = req.params
+    const {password} = req.body
+    try {
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+        const user = await userModel.findOne({verificationToken: token});
+        if (!user) {
+            return res.status(401).json({
+                message: "Invalid token",
+                status: "error"
+            })
+        }
+
+        if (user.verificationExp < Date.now() ) {
+            return res.status(403).json({
+                message: "Token has expired",
+                status: "error"
+            })
+        }
+        await userModel.findByIdAndUpdate(user._id, {
+            password: hashedPassword,
+            verificationToken: null,
+            verificationExp: null
+        })
+
+        return res.status(200).json({
+            message: "You password has been changed",
+            status: "success"
+        })
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            message: "Internal server error",
+            status: "error"
+        })
+    }
+}
+
 const login = async (req, res) => {
     const { email, password } = req.body;
     try {
@@ -95,5 +165,7 @@ const login = async (req, res) => {
 module.exports = {
     signUp,
     login,
-    verifyEmail
+    verifyEmail,
+    findEmail,
+    verifyPasswordReset
 }
