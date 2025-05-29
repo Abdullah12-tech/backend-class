@@ -7,7 +7,7 @@ const isSeller = require("../middlewares/isSeller")
 // const MiddlewareTwo = require("../middlewares/middleware2")
 const productRouter = express.Router()
 
-productRouter.get("/", getAllProducts)
+productRouter.get("/",isLoggedIn, getAllProducts)
 productRouter.get("/:id", getSingleProduct)
 productRouter.post("/",isLoggedIn,isSeller, addProduct)
 module.exports = productRouter

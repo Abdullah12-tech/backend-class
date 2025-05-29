@@ -16,6 +16,7 @@ const isLoggedIn = async (req,res, next)=>{
     // console.log(array.split("y"));
     
     const decoded = await jwt.verify(token, process.env.jwt_secret)
+    console.log(decoded);
     
     const user = await userModel.findById(decoded.id)
     if (!user) {
