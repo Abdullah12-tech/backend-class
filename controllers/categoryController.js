@@ -14,6 +14,21 @@ const addCategory = async (req, res) =>{
         category
     })
 }
+const getAllCategory = async (req, res) =>{
+    const category = await categoryModel.find()
+    if (!category) {
+        return res.status(400).json({
+            status: "error",
+            message: "category not added"
+        })
+    }
+    res.status(201).json({
+        status: "success",
+        message: "category has been added",
+        category
+    })
+}
 module.exports = {
-    addCategory
+    addCategory,
+    getAllCategory
 }

@@ -27,7 +27,7 @@ app.use("/api/auth", authRouter)
 
 
 app.all("/{*any}", (req,res)=>{
-    res.json(`${req.method} ${req.originalUrl} is not an endpoint on this server`)
+    res.status(400).json(`${req.method} ${req.originalUrl} is not an endpoint on this server`)
 })
 app.use(errorHandler)
 // const zoologist = ()=> {
