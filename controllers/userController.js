@@ -1,8 +1,19 @@
 const categoryModel = require("../models/categoryModel")
 const userModel = require("../models/userModel")
 
-const getAllUsers = (req, res)=>{
-    res.json("all users")
+const getAllUsers = async (req, res)=>{
+    const users = await userModel.find()
+    if (!users) {
+        return res.status(400).json({
+            message: "Can't find users",
+            status: "error"
+        })
+    }
+    res.status(200).json({
+        message: "This are all the users",
+        status: "success",
+        users
+    })
 }
 
 const getSingleUser = (req, res)=>{
