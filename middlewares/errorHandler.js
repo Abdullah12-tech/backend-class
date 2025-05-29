@@ -1,7 +1,7 @@
 const handleDuplicateError = (err) => {
-    const keyValue = err.keyValue || {}
-    const errorKey = Object.keys(keyValue)[0] || "field"
-    const errorValue = Object.values(keyValue)[0] || "value"
+    const keyValue = err.keyValue || (err.cause && err.cause.keyValue) || {}
+    const errorKey = Object.keys(keyValue)[0]
+    const errorValue = Object.values(keyValue)[0]
     const messageObj = new Error(`${errorKey} of ${errorValue} already exists`)
     const error = {
         statusCode: 400,
@@ -33,9 +33,9 @@ const handleJwtError = (err)=>{
     }
 }
 const errorHandler = (err, req, res, next) => {
-    console.log(err)
+    console.log(err.code,err.name)
     // DUPLICATE ERROR
-    if (err.code === 11000) {
+    if (err.code === 11000 || (err.cause && err.cause.code === 11000)) {
         const error = handleDuplicateError(err)
         return res.status(error.statusCode).json({
             message: error.message
