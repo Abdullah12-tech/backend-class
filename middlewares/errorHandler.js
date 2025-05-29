@@ -38,7 +38,8 @@ const errorHandler = (err, req, res, next) => {
     if (err.code === 11000 || (err.cause && err.cause.code === 11000)) {
         const error = handleDuplicateError(err)
         return res.status(error.statusCode).json({
-            message: error.message
+            message: error.message,
+            status: "error"
         })
     }
     else if (err.name === "JsonWebTokenError"){
