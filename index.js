@@ -7,9 +7,12 @@ const categoryRouter = require("./routes/categoryRouter")
 const blogRouter = require("./routes/blogRouter")
 const connectToDb = require("./config/connectToDb")
 const authRouter = require("./routes/authRouter")
+const morgan = require("morgan")
+const errorHandler = require("./middlewares/errorHandler")
 require("./services/nodemailer/transporter")
 app.use(express.json())
 app.use(cors())
+app.use(morgan("dev"))
 const port = 3000
 app.listen(port,()=>{
     console.log("Listening on port " + port);
@@ -23,6 +26,10 @@ app.use("/api/blogs", blogRouter)
 app.use("/api/auth", authRouter)
 
 
+app.all("/{*any}", (req,res)=>{
+    res.json(`${req.method} ${req.originalUrl} is not an endpoint on this server`)
+})
+app.use(errorHandler)
 // const zoologist = ()=> {
 //     console.log('abdul is my guy')
 // }

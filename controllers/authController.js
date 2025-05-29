@@ -4,7 +4,7 @@ const userModel = require("../models/userModel");
 const sendVerificationEmail = require("../services/nodemailer/sendMail");
 const randomGenerate = require("../utils/randomGenerate");
 const sendPasswordResetEmail = require("../services/nodemailer/passResetMail");
-const signUp = async (req, res) => {
+const signUp = async (req, res,next) => {
     const { password, email, name } = req.body;
     try {
         const salt = await bcrypt.genSalt(10)
@@ -28,10 +28,11 @@ const signUp = async (req, res) => {
 
     } catch (err) {
         console.log(err);
+        next(err)
     }
 }
 
-const verifyEmail = async (req, res) => {
+const verifyEmail = async (req, res,next) => {
     const { token } = req.params;
     try {
         const user = await userModel.findOne({ verificationToken: token })
@@ -57,12 +58,13 @@ const verifyEmail = async (req, res) => {
         })
     } catch (err) {
         console.log(err);
+        next(err)
     }
 }
 
 
 
-const findEmail = async (req,res)=>{
+const findEmail = async (req,res,next)=>{
     const {email} = req.body
     const token = randomGenerate(8)
     const tokenExpire = Date.now() + 3000000
@@ -87,10 +89,11 @@ const findEmail = async (req,res)=>{
         })
     } catch (err) {
         console.log(err);
+        next(err)
     }
 }
 
-const verifyPasswordReset = async (req,res)=>{
+const verifyPasswordReset = async (req,res,next)=>{
     const {token} = req.params
     const {password} = req.body
     try {
@@ -122,14 +125,11 @@ const verifyPasswordReset = async (req,res)=>{
         })
     } catch (err) {
         console.log(err);
-        return res.status(500).json({
-            message: "Internal server error",
-            status: "error"
-        })
+        next(err)
     }
 }
 
-const login = async (req, res) => {
+const login = async (req, res,next) => {
     const { email, password } = req.body;
     try {
         const user = await userModel.findOne({ email })
@@ -159,6 +159,7 @@ const login = async (req, res) => {
         })
     } catch (err) {
         console.log(err);
+        next(err)
     }
 }
 
