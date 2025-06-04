@@ -8,7 +8,7 @@ const signUp = async (req, res,next) => {
     const { password, email, name } = req.body;
     try {
         const salt = await bcrypt.genSalt(10)
-        const token = randomGenerate(8)
+        const token = randomGenerate(8);
         const hashedPassword = await bcrypt.hash(password, salt)
         const verificationExp = Date.now() + 3000000
         const user = await userModel.create({ ...req.body, password: hashedPassword, verificationToken: token, verificationExp: verificationExp })
